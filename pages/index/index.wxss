@@ -1,0 +1,198 @@
+/* pages/index/index.wxss */
+page{
+  background: #eee;
+  padding-bottom: 30rpx
+}
+.banner {
+  width: 100%;
+  height: 360rpx;
+}
+.banner2{
+  width: 400rpx;
+  height: 150rpx;
+  background: #FF9933;
+  border-radius: 10rpx;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 10rpx
+}
+.ban_item{
+  display: flex;
+  justify-content: space-around;
+  align-items: center
+}
+.ban_info{
+  width: 40%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around
+}
+.info_name{
+  font-size: 28rpx;
+  color: #fff;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden
+}
+.info_num{
+  font-size: 26rpx;
+}
+.info_btn{
+  font-size: 24rpx;
+  width: 100rpx;
+  height: 40rpx;
+  line-height: 40rpx;
+  background: #CC0000;
+  border-radius: 10rpx;
+  text-align: center;
+  color: #fff
+}
+.getU {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  z-index: 99
+}
+.getU_wrap {
+  width: 80%;
+  height: 800rpx;
+  background: #fff;
+  border-radius: 20rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.getU_t {
+  width: 100%;
+  height: 80rpx;
+  border-bottom: 1px solid #eee;
+  text-align: center;
+  line-height: 80rpx;
+  font-size: 28rpx;
+  color: #666;
+}
+.getU_c {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 26rpx;
+  color: #666;
+}
+.getU_btn {
+  width: 400rpx;
+  height: 70rpx;
+  text-align: center;
+  line-height: 70rpx;
+  background: #3c0;
+  color: #fff;
+  border-radius: 50rpx;
+  font-size: 30rpx;
+}
+.icon {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 24rpx;
+  color: #666;
+  margin-top: 50rpx;
+}
+
+.icon_img {
+  width: 60rpx;
+  height: 60rpx;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.newP{
+  width: 100%;
+  height: 60rpx;
+  background: #FF9933;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #fff
+}
+.first{
+  width: 90%;
+  height: 150rpx;
+  border-radius: 10rpx ;
+  margin: 20rpx auto 0rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between
+}
+.second{
+  width: 90%;
+  height: 200rpx;
+  border-radius: 10rpx;
+  margin: 25rpx auto 40rpx;
+  background: #fff;
+  box-shadow: 10rpx 10rpx 5rpx #ccc
+}
+.third{
+  width: 90%;
+  height: 400rpx;
+  border-radius: 10rpx;
+  margin: 0 auto;
+  background: #fff;
+  box-shadow: 10rpx 10rpx 5rpx #ccc;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center
+}
+.title{
+  font-size: 28rpx;
+  /* color: #660099; */
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  margin-left: 20rpx
+}
+.wrap{
+  width: 100%;
+  height: 150rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around
+}
+.item{
+  width: 130rpx;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  font-size: 28rpx;
+  align-items: center;
+  justify-content: space-around
+}
+.item>image{
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%
+}
+.name{
+  width: 130rpx;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 26rpx
+}
+.third_top{
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around
+}
+.third_bot{
+  width: 90%
+}

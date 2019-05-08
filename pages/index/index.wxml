@@ -1,0 +1,70 @@
+<!--pages/index/index.wxml-->
+<!-- 新人福利 -->
+<view class='newP' wx:if='{{show}}' bindtap='tologin' >{{msg}}</view>
+<!-- 顶部轮播图 -->
+<swiper class='banner' autoplay='true' indicator-dots='true'>
+  <swiper-item wx:for='{{bannerList}}' wx:key='{{index}}' bindtap='toGoodsDetail' data-id='{{item.id}}'>
+    <image src='{{imgurl+item.image}}' style='height:100%;width:100%'></image>
+  </swiper-item>
+</swiper>
+<!-- 授权蒙层 -->
+<view class='getU' style='height:{{Height*2}}rpx' wx:if='{{isShow}}'>
+  <view class='getU_wrap'>
+    <view class='getU_t'>需要您的授权</view>
+    <view class='getU_c'>
+      <view>为了提供更好的服务</view>
+      <view>请在稍后的提示框中点击"允许"</view>
+    </view>
+    <image style='height:400rpx;width:500rpx' src='../../icon/get.png'></image>
+    <button class='getU_btn' open-type='getUserInfo' bindgetuserinfo='getUserInfo'>我知道了</button>
+  </view>
+</view>
+
+<!-- 每日即时看、拼团 -->
+<view class='first'>
+  <image src='../../image/look.png' style='width:250rpx;height:150rpx;border-radius:10rpx;overflow:hidden' bindtap='look'></image>
+  <swiper class='banner2' autoplay='true' bindtap='toPintuan' indicator-dots='true'>
+    <swiper-item class='ban_item' wx:for='{{groupList}}' wx:key>
+      <image src='{{imgurl+item.fengmian}}' style='width:200rpx;height:120rpx'></image>
+      <view class='ban_info'>
+        <view class='info_name'>{{item.goods_name}}</view>
+        <view class='info_num'>
+          <view style='display:inline-block;color:#cc0000'>{{item.gb_num}}</view>人团</view>
+        <view class='info_btn'>去拼团</view>
+      </view>
+    </swiper-item>
+  </swiper>
+</view>
+<!-- 附近商家 -->
+<view class='second'>
+  <view class='title'>
+    <image src='../../icon/addr.png' style='width:25rpx;height:25rpx'></image>
+    <view style='margin-left:20rpx'>离我最近</view>
+  </view>
+  <view class='wrap'>
+    <view class='item' wx:for='{{list}}' wx:key bindtap='tonear'>
+      <image src='{{imgurl+item.fengmian}}'></image>
+      <view class='name'>{{item.school_name}}</view>
+    </view>
+    <image src='../../icon/more.png' style='width:30rpx;height:30rpx' bindtap='tonear'></image>
+  </view>
+</view>
+<!-- 主打课、身临其境、小游戏 -->
+<view class='third'>
+  <view class='third_top'>
+    <image src='../../image/3.png' style='width:48%;height:180rpx' bindtap='tokc' data-status='0'></image>
+    <image src='../../image/2.png' style='width:48%;height:180rpx' bindtap='toslqj' data-status='1'></image>
+  </view>
+  <view class='third_bot'>
+    <image src='../../image/1.png' style='width:100%;height:110rpx' bindtap='togame'></image>
+  </view>
+</view>
+
+<!-- 公司标识 -->
+<view class='icon'>
+  <view class='icon_img'>
+    <image src='../../icon/icon.png' style='width:100%;height:100%'></image>
+  </view>
+  <view style='margin-top:15rpx'>—— 快乐童年提供技术支持 ——</view>
+  <!-- <view></view> -->
+</view>

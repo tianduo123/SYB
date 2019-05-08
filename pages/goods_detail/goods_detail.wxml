@@ -1,0 +1,8 @@
+<!--pages/goods_detail/goods_detail.wxml-->
+<import src="../../wxParse/wxParse.wxml"/>
+<view class='wxParse'>
+<template is="wxParse" data="{{wxParseData:article.nodes}}"/>
+</view> 
+<!-- <view class='img'>
+  <image src='../../icon/icon.png'></image>
+</view> -->
