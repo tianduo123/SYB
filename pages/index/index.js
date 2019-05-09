@@ -99,9 +99,9 @@ Page({
         if (res.data.re.pin == 1) {
           wx.navigateToMiniProgram({
             appId: 'wx3950a029465d5070',
-            path: `pages/home/home?admin_id=${api.BASE_ID}`,
-            extraData: {
-              appid: api.BASE_ID
+            // path: 'pages/home/home?admin_id=15',
+            extraData:{
+              admin_id:15
             },
             envVersion: 'release',
             success: (res) => {
