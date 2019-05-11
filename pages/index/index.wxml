@@ -1,6 +1,6 @@
 <!--pages/index/index.wxml-->
 <!-- 新人福利 -->
-<view class='newP' wx:if='{{show}}' bindtap='tologin' >{{msg}}</view>
+<view class='newP' wx:if='{{show}}' bindtap='tologin'>{{msg}}</view>
 <!-- 顶部轮播图 -->
 <swiper class='banner' autoplay='true' indicator-dots='true'>
   <swiper-item wx:for='{{bannerList}}' wx:key='{{index}}' bindtap='toGoodsDetail' data-id='{{item.id}}'>
@@ -41,12 +41,23 @@
     <image src='../../icon/addr.png' style='width:25rpx;height:25rpx'></image>
     <view style='margin-left:20rpx'>离我最近</view>
   </view>
-  <view class='wrap'>
-    <view class='item' wx:for='{{list}}' wx:key bindtap='tonear'>
-      <image src='{{imgurl+item.fengmian}}'></image>
-      <view class='name'>{{item.school_name}}</view>
+  <block wx:if='{{list}}'>
+  <view style='display:flex;align-items:center;'>
+     <view class='wrap'>
+      <view class='item' wx:for='{{list}}' wx:key bindtap='tonear'>
+        <image src='{{imgurl+item.fengmian}}'></image>
+        <view class='name'>{{item.school_name}}</view>
+      </view>
     </view>
-    <image src='../../icon/more.png' style='width:30rpx;height:30rpx' bindtap='tonear'></image>
+    <view class='more'>
+      <image src='../../icon/more.png' style='width:30rpx;height:30rpx;' bindtap='tonear'></image>    
+    </view>
+  </view>
+ 
+  </block>
+  <view wx:else class='wrap2'>
+    <image src='../../icon/empty2.png' style='width:120rpx;height:80rpx'></image>
+    <view>您的附近暂无生员宝商家哦</view>
   </view>
 </view>
 <!-- 主打课、身临其境、小游戏 -->

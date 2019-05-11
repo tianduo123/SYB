@@ -18,7 +18,7 @@ Page({
     wx.request({
       url: api.nearList(options.lat,options.lon),
       success:(res)=>{
-        console.log(res)
+        console.log('附近商家',res)
         this.setData({
           nearList:res.data.re
         })

@@ -2,7 +2,7 @@
 page{
   box-sizing: border-box;
   padding-bottom: 120rpx;
-  padding-top: 80rpx
+  /* padding-top: 80rpx */
 }
 .video{
   width: 100%;

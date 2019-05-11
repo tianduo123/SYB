@@ -21,16 +21,15 @@ Page({
    */
   onLoad: function(options) {
     //获取详情广告
-    wx.request({
-      url: api.getGg(3),
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          ggList: res.data.re
-        })
-      }
-    })
-    // this.getList()
+    // wx.request({
+    //   url: api.getGg(3),
+    //   success: (res) => {
+    //     console.log(res)
+    //     this.setData({
+    //       ggList: res.data.re
+    //     })
+    //   }
+    // })
   },
   //获取视频列表
   getList() {
@@ -58,12 +57,12 @@ Page({
   },
 
   //广告详情
-  toGgDetail(e) {
-    console.log(e)
-    wx.navigateTo({
-      url: `../ggDetail/ggDetail?id=${e.currentTarget.dataset.id}`,
-    })
-  },
+  // toGgDetail(e) {
+  //   console.log(e)
+  //   wx.navigateTo({
+  //     url: `../ggDetail/ggDetail?id=${e.currentTarget.dataset.id}`,
+  //   })
+  // },
   //去视频详情
   toDetail(e) {
     console.log(e)

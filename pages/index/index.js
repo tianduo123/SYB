@@ -95,7 +95,7 @@ Page({
     wx.request({
       url: api.hasPin(),
       success: (res) => {
-        console.log(res)
+        console.log('查看是否开通省银子小程序',res)
         if (res.data.re.pin == 1) {
           wx.navigateToMiniProgram({
             appId: 'wx3950a029465d5070',
@@ -113,7 +113,7 @@ Page({
           })
         } else {
           wx.showToast({
-            title: '暂无拼团活动',
+            title: '暂无优惠活动',
             image: '../../icon/cry.png'
           })
         }
@@ -190,6 +190,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //判断当前商家是否开通省银子功能
+    wx.request({
+      url: api.hasPin(),
+      success:(res)=>{
+        console.log('判断当前商家是否开通省银子功能',res)
+        
+      }
+    })
     //获取拼团商品轮播
     wx.request({
       url: api.getBanner2(),
