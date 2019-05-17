@@ -38,37 +38,7 @@ Page({
       url: `/pages/goods_detail/goods_detail?id=${e.currentTarget.dataset.id}`,
     })
   },
-  //拼团
-  toPintuan() {
-    wx.request({
-      url: api.hasPin(),
-      success: (res) => {
-        console.log(res)
-        if (res.data.re.pin == 1) {
-          wx.navigateToMiniProgram({
-            appId: 'wx3950a029465d5070',
-            path: `pages/home/home?admin_id=${api.BASE_ID}`,
-            extraData: {
-              appid: api.BASE_ID
-            },
-            envVersion: 'release',
-            success: (res) => {
-              console.log(res)
-            },
-            fail: (res) => {
-              console.log(res)
-            }
-          })
-        } else {
-          wx.showToast({
-            title: '暂无拼团活动',
-            image: '../../icon/cry.png'
-          })
-        }
-      }
-    })
 
-  },
   //每日即时看
   look() {
     console.log('每日即时看')
@@ -95,13 +65,12 @@ Page({
     wx.request({
       url: api.hasPin(),
       success: (res) => {
-        console.log('查看是否开通省银子小程序',res)
+        console.log('查看是否开通省银子小程序', res)
         if (res.data.re.pin == 1) {
           wx.navigateToMiniProgram({
             appId: 'wx3950a029465d5070',
-            // path: 'pages/home/home?admin_id=15',
-            extraData:{
-              admin_id:15
+            extraData: {
+              admin_id: 15
             },
             envVersion: 'release',
             success: (res) => {
@@ -218,24 +187,7 @@ Page({
         })
       }
     })
-    //从缓存中拿用户userInfo数据
-    wx.getStorage({
-      key: 'userInfo',
-      success: (res) => {
-        console.log('拿到授权信息')
-        //拿到用户微信信息 --> 不显示授权蒙层
-        this.setData({
-          isShow: false
-        })
-      },
-      fail: (res) => {
-        console.log('没拿到授权信息')
-        //没拿到用户微信信息 --> 显示授权蒙层
-        this.setData({
-          isShow: true
-        })
-      }
-    })
+   
     //获取用户经纬度（显示附近商家需要）
     wx.getLocation({
       success: (res) => {
@@ -300,6 +252,24 @@ Page({
        }
      },
    })
+    //从缓存中拿用户userInfo数据
+    wx.getStorage({
+      key: 'userInfo',
+      success: (res) => {
+        console.log('拿到授权信息')
+        //拿到用户微信信息 --> 不显示授权蒙层
+        this.setData({
+          isShow: false
+        })
+      },
+      fail: (res) => {
+        console.log('没拿到授权信息')
+        //没拿到用户微信信息 --> 显示授权蒙层
+        this.setData({
+          isShow: true
+        })
+      }
+    })
   },
 
   /**

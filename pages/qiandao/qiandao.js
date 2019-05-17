@@ -12,12 +12,57 @@ Page({
     show:'none',
     show2:'',
   },
+  //获取用户信息
+  getUserInfo(res) {
+    console.log(res)
+    if (res.detail.rawData) {
+      this.setData({
+        userInfo:res.detail.userInfo
+      })
+      //将用户信息存到缓存
+      wx.setStorage({
+        key: 'userInfo',
+        data: res.detail.userInfo,
+      })
+      this.setData({
+        isImpower: true
+      })
+      //调用接口保存用户授权信息
+      wx.request({
+        url: api.saveUser(app.globalData.openid, res.detail.userInfo.nickName, res.detail.userInfo.avatarUrl),
+        success: (res) => {
+          console.log(res)
+        }
+      })
+    }
+  },
+
+  //判断用户是否授权(通过缓存)
+  isImpower(){
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        console.log('缓存中的用户信息是',res)
+        this.setData({
+          isImpower:true,
+
+        })
+      },
+      fail:()=>{
+        console.log('缓存中没有用户信息')
+        this.setData({
+          isImpower:false
+        })
+      }
+    })
+  },
+
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    this.isImpower()
     this.setData({
       Height:app.globalData.Height
     })

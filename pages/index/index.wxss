@@ -21,6 +21,7 @@ page{
   justify-content: space-around;
   align-items: center
 }
+
 .ban_info{
   width: 40%;
   height: 100%;
@@ -187,12 +188,19 @@ page{
   flex-direction: column;
   font-size: 28rpx;
   align-items: center;
-  justify-content: space-around
+  justify-content: space-around;
+  position: relative
 }
+
 .item>image{
   width: 80rpx;
   height: 80rpx;
   border-radius: 50%
+}
+.hasP{
+  position: absolute;
+  top: 0rpx;
+  right: 10rpx
 }
 .name{
   width: 130rpx;

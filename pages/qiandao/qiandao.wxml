@@ -193,10 +193,22 @@
 
 <!-- 新用户送积分弹窗 -->
 <view class='newP' style='height:{{Height*2}}rpx' wx:if='{{isNew}}'>
-
   <view class='newP_wrap'>
     <image src='../../icon/new.png' style='width:350rpx;height:350rpx'></image>
     <view class='newP_btn' bindtap='getNewScore'>立即领取</view>
   </view>
-
 </view>
+
+<!-- 授权蒙层 -->
+<view class='getU' style='height:{{Height*2}}rpx' wx:if='{{!isImpower}}'>
+  <view class='getU_wrap'>
+    <view class='getU_t'>需要您的授权</view>
+    <view class='getU_c'>
+      <view>为了提供更好的服务</view>
+      <view>请在稍后的提示框中点击"允许"</view>
+    </view>
+    <image style='height:400rpx;width:500rpx' src='../../icon/get.png'></image>
+    <button class='getU_btn' open-type='getUserInfo' bindgetuserinfo='getUserInfo'>我知道了</button>
+  </view>
+</view>
+
