@@ -313,11 +313,12 @@ Page({
       title: '努力加载中...',
       success:()=>{
         //重新获取首页轮播
-        this.getBanner()
+        this.getBanner(),
+        this.getClass()
         setTimeout(()=>{
           wx.hideLoading()
           wx.stopPullDownRefresh()
-        },1500)
+        },1000)
       }
     })
   },
