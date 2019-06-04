@@ -20,16 +20,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    //获取详情广告
-    // wx.request({
-    //   url: api.getGg(3),
-    //   success: (res) => {
-    //     console.log(res)
-    //     this.setData({
-    //       ggList: res.data.re
-    //     })
-    //   }
-    // })
   },
   //获取视频列表
   getList() {
@@ -37,11 +27,13 @@ Page({
       url: api.look1(this.data.page),
       success: (res) => {
         console.log(res)
-        if (res.data.status == 0 || res.data.re.length < 4) {
+        if (res.data.status == 1 && res.data.re.length < 4) {
+          console.log('合并后的新数组', this.data.contentList.concat(res.data.re))
           this.setData({
-            hasMore: false
+            hasMore: false,
+            contentList: this.data.contentList.concat(res.data.re)
           })
-        } else {
+        } else if(res.data.status == 1 && res.data.re.length >= 4){
           this.setData({
             hasMore: true,
             page: this.data.page + 1
@@ -50,19 +42,16 @@ Page({
           this.setData({
             contentList: this.data.contentList.concat(res.data.re)
           })
+        }else{
+          console.log('获取失败')
+          this.setData({
+            hasMore:false
+          })
         }
 
       }
     })
   },
-
-  //广告详情
-  // toGgDetail(e) {
-  //   console.log(e)
-  //   wx.navigateTo({
-  //     url: `../ggDetail/ggDetail?id=${e.currentTarget.dataset.id}`,
-  //   })
-  // },
   //去视频详情
   toDetail(e) {
     console.log(e)

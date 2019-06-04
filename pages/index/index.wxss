@@ -132,6 +132,18 @@ page{
   align-items: center;
   justify-content: space-between
 }
+.first_l{
+  width:250rpx;
+  height:150rpx;
+  border-radius:10rpx;
+  overflow:hidden;
+  box-shadow:10rpx 10rpx 5rpx #ccc;
+  background: #ffd6e7;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 28rpx
+}
 .second{
   width: 90%;
   height: 200rpx;
@@ -217,6 +229,33 @@ page{
   align-items: center;
   justify-content: space-around
 }
+.third_l{
+  width:48%;
+  height:180rpx;
+  background: #ffdeff;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius:10rpx;
+}
+.third_r{
+  width:48%;
+  height:180rpx;
+  background: #efdeff;
+  font-size: 28rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border-radius:10rpx;
+}
 .third_bot{
   width: 90%
+}
+.empty{
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 28rpx;
+  color: #fff
 }

@@ -10,6 +10,20 @@ Page({
     imgurl: api.API_IMG,
     show:true
   },
+  //获取首页3大分类
+  getClass(){
+    wx.request({
+      url: api.getClass(),
+      success:(res)=>{
+        console.log(res)
+        this.setData({
+          jishikan:res.data.re[0],
+          zhudake:res.data.re[1],
+          shenlin:res.data.re[2]
+        })
+      }
+    })
+  },
   //获取用户信息
   getUserInfo(res) {
     console.log(res)
@@ -31,6 +45,19 @@ Page({
       })
     }
   },
+  //首页顶部轮播图
+  getBanner(){
+    wx.request({
+      url: api.getBanner(),
+      success: (res) => {
+        console.log('顶部轮播图', res)
+        this.setData({
+          bannerList: res.data.re
+        })
+      }
+    })
+
+  },
   //轮播详情
   toGoodsDetail(e) {
     console.log(e)
@@ -38,7 +65,6 @@ Page({
       url: `/pages/goods_detail/goods_detail?id=${e.currentTarget.dataset.id}`,
     })
   },
-
   //每日即时看
   look() {
     console.log('每日即时看')
@@ -159,12 +185,13 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //获取首页3大分类
+    this.getClass()
     //判断当前商家是否开通省银子功能
     wx.request({
       url: api.hasPin(),
       success:(res)=>{
         console.log('判断当前商家是否开通省银子功能',res)
-        
       }
     })
     //获取拼团商品轮播
@@ -178,16 +205,7 @@ Page({
       }
     })
     //获取首页轮播
-    wx.request({
-      url: api.getBanner(),
-      success: (res) => {
-        console.log('顶部轮播图',res)
-        this.setData({
-          bannerList: res.data.re
-        })
-      }
-    })
-   
+    this.getBanner()
     //获取用户经纬度（显示附近商家需要）
     wx.getLocation({
       success: (res) => {
@@ -290,7 +308,18 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    console.log('用户下拉刷新')
+    wx.showLoading({
+      title: '努力加载中...',
+      success:()=>{
+        //重新获取首页轮播
+        this.getBanner()
+        setTimeout(()=>{
+          wx.hideLoading()
+          wx.stopPullDownRefresh()
+        },1500)
+      }
+    })
   },
 
   /**

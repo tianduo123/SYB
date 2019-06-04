@@ -19,7 +19,7 @@ page{
 .btn{
   width: 80%;
   height: 100rpx;
-  margin: 0rpx auto 30rpx;
+  margin: 0rpx auto 100rpx;
   background: #ffd3de;
   line-height: 100rpx;
   text-align: center;
@@ -30,7 +30,7 @@ page{
 .btn2{
   width: 80%;
   height: 100rpx;
-  margin: 0rpx auto 30rpx;
+  margin: 0rpx auto 100rpx;
   background: #ff4171;
   line-height: 100rpx;
   text-align: center;
@@ -54,17 +54,33 @@ page{
   margin-left: 50rpx;
   line-height: 90rpx
 }
-.last{
-  width: 90%;
-  display: flex;
-  font-size: 28rpx;
-  color: #666;
-  align-items: center;
-  justify-content: flex-end;
-  margin-bottom: 20rpx
+
+.inp2{
+  width: 50%;
+  height: 90rpx;
+  margin-left: 50rpx;
+  line-height: 90rpx;
 }
-.last>image{
-  width: 30rpx;
-  height: 30rpx;
-  margin-right: 20rpx
+.getpsd{
+  width: 30%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  margin: 0 auto;
+  border-left: 1px solid #eeeeee
+}
+.getpsd2{
+  color: #666666;
+  width: 30%;
+  height: 90rpx;
+  line-height: 90rpx;
+  text-align: center;
+  margin: 0 auto;
+  border-left: 1px solid #eeeeee
+}
+.timer{
+  display: inline-block;
+  font-size: 26rpx;
+  margin-left: 20rpx;
+  /* color: #000000 */
 }

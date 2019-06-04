@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 20,
+			"current": 23,
 			"list": [
 				{
 					"id": -1,
@@ -177,6 +177,27 @@
 					"id": -1,
 					"name": "身临其境列表",
 					"pathName": "pages/video_list/video_list",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": 21,
+					"name": "模拟更新",
+					"pathName": "pages/index/index",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "注册",
+					"pathName": "pages/register/register",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "忘记密码",
+					"pathName": "pages/forgetPsd/forgetPsd",
 					"query": "",
 					"scene": null
 				}

@@ -8,6 +8,10 @@ let app = getApp()
 function getOpenid(a,b,c){
   return API_BASE + `/user/openid?appid=${a}&secret=${b}&code=${c}&admin_id=${BASE_ID}`
 }
+//获取每日即时看、主打课、身临其境
+function getClass(){
+  return API_BASE + `/index/module?admin_id=${BASE_ID}`
+}
 //获取首页轮播图
 function getBanner(){
   return API_BASE + `/index/turn?admin_id=${BASE_ID}`
@@ -85,8 +89,8 @@ function getcode(e){
   return API_BASE + `/user/smsSend2?phone=${e}`
 }
 //用户注册
-function login(a,b){
-  return API_BASE + `/user/register?admin_id=${BASE_ID}&openid=${a}&phone=${b}`
+function register(a,b,c){
+  return API_BASE + `/user/register?admin_id=${BASE_ID}&openid=${a}&phone=${b}&password=${c}`
 }
 //判断用户是否注册
 function isLogin(a){
@@ -97,8 +101,8 @@ function saveUser(a,b,c){
   return API_BASE + `/user/saveUser?admin_id=${BASE_ID}&openid=${a}&nickname=${b}&headimgurl=${c}`
 }
 //
-//用户登录
-function register(a,b){
+//用户登录 
+function login(a,b){
   return API_BASE + `/user/login?phone=${a}&password=${b}`
 }
 //评论功能
@@ -284,9 +288,9 @@ function getBanner2(){
 module.exports = {
   API_IMG, BASE_ID,
   getBanner,getTab,getFunctional,getImg,getBannerDetail,getAddress,getVideoList,getFuncdetail,getVideiDetail,like,
-  getOpenid,getcode,yuyue,login,isLogin,saveUser,register,video_zan,comment,commentList,commentZan,rankList,allRankList,
+  getOpenid,getcode,yuyue,isLogin,saveUser,login,register,video_zan,comment,commentList,commentZan,rankList,allRankList,
   resetPsd,getRule,goodsList,getGoods,getUserScore,getLog,getUserLog,qiandao,isQiandao,submit,share,nearList,message,
   isDone, getScore, isGet, tuijian, isMake, cancel, addBrowser, addBrowser2, comment2, commentList2, like2, getZan,getZan2,        
   getNscore, getShare, getVideoId, getSlqj, getGg, getGgDetail, ggClick, nearDetail, look1, look2, look3, look4, look5, look6,    
-  look7, look8, hasPin, myyuyeu, newP, getBanner2
+  look7, look8, hasPin, myyuyeu, newP, getBanner2, getClass
 }

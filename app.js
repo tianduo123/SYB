@@ -43,7 +43,36 @@ App({
         }
       }
     })
-    
+    //强制用户更新小程序
+    //获取更新管理对象
+    const updateManager = wx.getUpdateManager()
+    //检查是否有新版本
+    updateManager.onCheckForUpdate(res=>{
+      console.log('检查是否有新版本',res)
+    })
+    //监听小程序有新版本
+    updateManager.onUpdateReady(res=>{
+      console.log(res)
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本已准备好,是否重新应用？',
+        success:(res)=>{
+          if(res.confirm){
+            //新版本已经下载好，强制更新
+            updateManager.applyUpdate()
+          }
+        }
+      })
+    })
+    //监听小程序更新失败
+    updateManager.onUpdateFailed(res=>{
+      console.log(res)
+      wx.showModal({
+        title: '更新提示',
+        content: '新版本下载失败',
+        showCancel:false
+      })
+    })
   },
   globalData: {
     userInfo: null,

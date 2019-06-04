@@ -11,6 +11,7 @@ Page({
     isqiandao:false, 
     show:'none',
     show2:'',
+    score:0
   },
   //获取用户信息
   getUserInfo(res) {
@@ -130,21 +131,24 @@ Page({
         }
       })
     }else{
-      wx.showModal({
-        title: '需注册手机号才能进行该操作',
-        content: '是否现在注册',
-        success:(res)=>{
-          if(res.confirm){
-            //用户点击了确定，跳转绑定手机号页面
-            console.log('用户点击了确定')
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          }else{
-            console.log('用户点击了取消')
-          }
-        }
+      wx.navigateTo({
+        url: '../login/login',
       })
+      // wx.showModal({
+      //   title: '需注册手机号才能进行该操作',
+      //   content: '是否现在注册',
+      //   success:(res)=>{
+      //     if(res.confirm){
+      //       //用户点击了确定，跳转绑定手机号页面
+      //       console.log('用户点击了确定')
+      //       wx.navigateTo({
+      //         url: '../login/login',
+      //       })
+      //     }else{
+      //       console.log('用户点击了取消')
+      //     }
+      //   }
+      // })
     }
   },
   //绑定手机号(注册)
@@ -162,22 +166,25 @@ Page({
         url: `../getgoods/getgoods?userId=${this.data.userId}`,
       })
     }else{
-      //没有拿到userId，提示用户去手机号
-      wx.showModal({
-        title: '需注册手机号才能进行该操作',
-        content: '是否现在注册',
-        success:(res)=>{
-          if(res.confirm){
-            //用户点击了确定，跳转绑定手机号页面
-            console.log('确定')
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          }else{
-            console.log('用户点击了取消')
-          }
-        }
+      //没有拿到userId，提示用户去登录
+      wx.navigateTo({
+        url: '../login/login',
       })
+      // wx.showModal({
+      //   title: '需注册手机号才能进行该操作',
+      //   content: '是否现在注册',
+      //   success:(res)=>{
+      //     if(res.confirm){
+      //       //用户点击了确定，跳转绑定手机号页面
+      //       console.log('确定')
+      //       wx.navigateTo({
+      //         url: '../login/login',
+      //       })
+      //     }else{
+      //       console.log('用户点击了取消')
+      //     }
+      //   }
+      // })
     }
   },
   //查看成长豆排行榜
@@ -188,21 +195,24 @@ Page({
       })
     }else{
       //没有绑定手机号 提示用户绑定
-      wx.showModal({
-        title: '需注册手机号后才能进行该操作',
-        content: '是否现在注册',
-        success:(res)=>{
-          if(res.confirm){
-            //用户点击了确定，跳转绑定手机号页面
-            console.log('确定')
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          }else{
-            console.log('用户点击了取消')
-          }
-        }
+      wx.navigateTo({
+        url: '../login/login',
       })
+      // wx.showModal({
+      //   title: '需注册手机号后才能进行该操作',
+      //   content: '是否现在注册',
+      //   success:(res)=>{
+      //     if(res.confirm){
+      //       //用户点击了确定，跳转绑定手机号页面
+      //       console.log('确定')
+      //       wx.navigateTo({
+      //         url: '../login/login',
+      //       })
+      //     }else{
+      //       console.log('用户点击了取消')
+      //     }
+      //   }
+      // })
     }
  
   },
@@ -221,9 +231,16 @@ Page({
   //成长豆明细
   toScoreDetail(){
     console.log('成长豆明细')
-    wx.navigateTo({
-      url: `../scroe_detail/score_detail?userId=${this.data.userId}`,
-    })
+    if (this.data.userId) {
+      wx.navigateTo({
+        url: `../scroe_detail/score_detail?userId=${this.data.userId}`,
+      })
+    } else {
+      //没有拿到userId,跳转登录页面
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
   },
   //输入推荐人手机号
   getPhone(e){
@@ -382,21 +399,24 @@ Page({
       })
     } else {
       //没有拿到userId，提示用户去手机号
-      wx.showModal({
-        title: '需注册手机号才能进行该操作',
-        content: '是否现在注册',
-        success: (res) => {
-          if (res.confirm) {
-            //用户点击了确定，跳转绑定手机号页面
-            console.log('确定')
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          } else {
-            console.log('用户点击了取消')
-          }
-        }
+      wx.navigateTo({
+        url: '../login/login',
       })
+      // wx.showModal({
+      //   title: '需注册手机号才能进行该操作',
+      //   content: '是否现在注册',
+      //   success: (res) => {
+      //     if (res.confirm) {
+      //       //用户点击了确定，跳转绑定手机号页面
+      //       console.log('确定')
+      //       wx.navigateTo({
+      //         url: '../login/login',
+      //       })
+      //     } else {
+      //       console.log('用户点击了取消')
+      //     }
+      //   }
+      // })
     }
 
   },
@@ -409,20 +429,8 @@ Page({
       })
     } else {
       //没有拿到userId，提示用户去手机号
-      wx.showModal({
-        title: '需绑定手机号才能进行该操作',
-        content: '是否现在绑定',
-        success: (res) => {
-          if (res.confirm) {
-            //用户点击了确定，跳转绑定手机号页面
-            console.log('确定')
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          } else {
-            console.log('用户点击了取消')
-          }
-        }
+      wx.navigateTo({
+        url: '../login/login',
       })
     }
     
@@ -437,21 +445,24 @@ Page({
       })
     } else {
       //没有拿到userId，提示用户去手机号
-      wx.showModal({
-        title: '需绑定手机号才能进行该操作',
-        content: '是否现在绑定',
-        success: (res) => {
-          if (res.confirm) {
-            //用户点击了确定，跳转绑定手机号页面
-            console.log('确定')
-            wx.navigateTo({
-              url: '../login/login',
-            })
-          } else {
-            console.log('用户点击了取消')
-          }
-        }
+      wx.navigateTo({
+        url: '../login/login',
       })
+      // wx.showModal({
+      //   title: '需绑定手机号才能进行该操作',
+      //   content: '是否现在绑定',
+      //   success: (res) => {
+      //     if (res.confirm) {
+      //       //用户点击了确定，跳转绑定手机号页面
+      //       console.log('确定')
+      //       wx.navigateTo({
+      //         url: '../login/login',
+      //       })
+      //     } else {
+      //       console.log('用户点击了取消')
+      //     }
+      //   }
+      // })
     }
 
 

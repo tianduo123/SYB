@@ -6,13 +6,16 @@
 <view class='name'>{{userInfo.nickName}}</view>
 <form bindsubmit='login'>
   <view class='item'>
-    <input class='inp' placeholder='请输入您的手机号' name='phone' bindinput='getPhone' value='{{val}}'></input>
+    <input class='inp' placeholder='请输入您的手机号' name='phone' bindinput='userPhone' value='{{val}}'></input>
   </view>
   <view class='item'>
-    <input class='inp2' placeholder='请输入验证码' name='usercode' bindinput='userCode' value='{{val2}}'></input>
-    <view class='{{ msg=="已发送"?"getpsd2":"getpsd"}}' bindtap='getcode'>{{msg}}<view class='timer'wx:if='{{msg=="已发送"}}'>({{timer_num}}s)</view></view>
+    <input class='inp' placeholder='请输入您的密码' name='psd' bindinput='userPsd' value='{{psd}}'></input>
   </view>
-  <button class='{{isLogin?"btn2":"btn"}}' form-type='submit'>注册/登录</button>
+  <button class='{{isLogin?"btn2":"btn"}}' form-type='submit'>登录</button>
 </form>
-
-
+<view class='last'>
+  <image src='../../icon/register.png'></image>
+  <view  style='margin-right:30rpx' bindtap='register'>立即注册</view>
+  <image src='../../icon/forget.png'></image>
+  <view bindtap='forget'>忘记密码</view>
+</view>

@@ -7,10 +7,6 @@ Page({
    * 页面的初始数据
    */
   data: {
-    msg: '获取验证码',
-    timer_num: 60,
-    val:'',
-    val2:''
   },
 
   /**
@@ -28,135 +24,112 @@ Page({
       },
     })
   },
-  //获取用户姓名
-  getName(e) {
-    console.log(e)
-  },
-  //获取注册手机号
-  getPhone(e) {
-    console.log(e)
+  //获取用户输入的手机号
+  userPhone(e){
+    // console.log(e)
     this.setData({
-      phone: e.detail.value
+      userPhone:e.detail.value
     })
-    app.globalData.userPhone = e.detail.value
   },
-  //获取用户输入验证码
-  userCode(e){
-    console.log(e.detail.value.length)
-    //输入手机号和验证码后高亮显示注册按钮
-    if(this.data.phone&&e.detail.value.length==4){
-      console.log('用户输入手机号&&验证码是4位数')
+  //获取用户输入的密码
+  userPsd(e){
+    // console.log(e)
+    this.setData({
+      userPsd:e.detail.value
+    })
+    //改变登录按钮样式
+    if(e.detail.value){
       this.setData({
-        isLogin:true
+        isLogin: true
       })
     }else{
       this.setData({
         isLogin:false
       })
     }
+ 
   },
-  //获取验证码
-  getcode() {
-    //判断用户手机号是否合法
-    if ((!(/^1[34578]\d{9}$/.test(this.data.phone)))){
-      wx.showToast({
-        title: '手机号输入有误',
-        icon: 'none'
-      })
-    } else if (this.data.msg == '获取验证码') {
-      this.setData({
-        msg: '已发送'
-      })
-      //启动定时器     
-      var timer = setInterval(() => {
-        this.setData({
-          timer_num: this.data.timer_num - 1
-        })
-        console.log(this.data.timer_num)
-        if (this.data.timer_num == 0) {
-          //关闭定时器
-          clearInterval(timer)
-          console.log('关闭定时器')
-          this.setData({
-            msg:'获取验证码',
-            timer_num:60
-          })
-        }
-      }, 1000)
-      //发短信
-      wx.request({
-        url: api.getcode(this.data.phone),
-        success: (res) => {
-          console.log(res)
-          this.setData({
-            code: res.data.code
-          })
-        }
-      })
-    } else {
-      console.log('验证码已发送')
-      return
-    }
-
+  //立即注册
+  register(){
+    wx.redirectTo({
+      url: '../register/register',
+    })
   },
-  //注册
+  //忘记密码
+  forget(){
+    wx.redirectTo({
+      url: '../forgetPsd/forgetPsd',
+    })
+  },
+  //登录
   login(e) {
     console.log(e)
-    //前端判断用户输入验证码是否正确
-    if(this.data.code == e.detail.value.usercode){
-      //输入正确 --> 调注册接口
-      wx.request({
-        url: api.login(app.globalData.openid, e.detail.value.phone),
-        success: (res) => {
-          console.log(res)
-          //判断是否是新用户
-          if(res.data.first==0){
-            //新用户
-            console.log('新用户，赠送积分')
-            app.globalData.newP = true,
-            app.globalData.score = res.data.num
-          }else{
-            //老用户
-            console.log('老用户，不赠送积分')
-          }
-          if(res.data.status == 1){
-            //注册成功，将userId存到缓存
-            wx.setStorage({
-              key: 'userId',
-              data: res.data.data,
-              success:()=>{
-                console.log('存储成功')
-              },
-              fail:()=>{
-                console.log('存储失败')
-              }
-            })
-            wx.showToast({
-              title: '注册成功',
-              success:()=>{
-                setTimeout(()=>{
-                  console.log('跳转到签到页面')
-                  wx.switchTab({
-                    url: `../qiandao/qiandao`,
-                  })
-                  this.setData({
-                    val: '',
-                    val2: ''
-                  })
-                },1500)
-                
-              }
-            })
-          }
+    wx.request({
+      url: api.login(e.detail.value.phone,e.detail.value.psd),
+      success: (res) => {
+        console.log(res)
+        if(res.data.status==0){
+          wx.showToast({
+            title: '用户名或密码错误',
+            icon:'none'
+          })
+        }else if(res.data.status==1){
+          //登录成功，将userId存到缓存
+          wx.setStorage({
+            key: 'userId',
+            data:res.data.data.id,
+          })
+          wx.showToast({
+            title: '登录成功',
+            success:()=>{
+              setTimeout(function(){
+                wx.switchTab({
+                  url: '../qiandao/qiandao',
+                })
+                this.setData({
+                  val:'',
+                  psd:''
+                })
+              },1000)
+            }
+          })
+        }else{
+          wx.showToast({
+            title: '发生了一个未知错误',
+            icon:'none'
+          })
         }
-      })
-    }else{
-      //输入错误 --> 提示
-      wx.showToast({
-        title: '验证码错误，请重新输入',
-        icon:'none'
-      })
-    }
+        // if (res.data.status == 1) {
+        //   //注册成功，将userId存到缓存
+        //   wx.setStorage({
+        //     key: 'userId',
+        //     data: res.data.data,
+        //     success: () => {
+        //       console.log('存储成功')
+        //     },
+        //     fail: () => {
+        //       console.log('存储失败')
+        //     }
+        //   })
+        //   wx.showToast({
+        //     title: '登录成功',
+        //     success: () => {
+        //       setTimeout(() => {
+        //         console.log('跳转到我的页面')
+        //         wx.switchTab({
+        //           url: `../qiandao/qiandao`,
+        //         })
+        //         this.setData({
+        //           val: '',
+        //           val2: ''
+        //         })
+        //       }, 1500)
+
+        //     }
+        //   })
+        // }
+      }
+    })
   },
 
   /**

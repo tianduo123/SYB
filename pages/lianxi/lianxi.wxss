@@ -57,7 +57,7 @@
   align-items: center
 }
 .share_img{
-  width: 610rpx;
+  width: 220rpx;
   height: 220rpx;
 }
 .share_img2{

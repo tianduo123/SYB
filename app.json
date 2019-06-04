@@ -19,9 +19,10 @@
     "pages/ggDetail/ggDetail",
     "pages/near_detail/near_detail",
     "pages/video_detail2/video_detail2",
-    "pages/test/test",
     "pages/myyuyue/myyuyue",
-    "pages/video_list/video_list"
+    "pages/video_list/video_list",
+    "pages/register/register",
+    "pages/forgetPsd/forgetPsd"
   ],
   "window": {
     "backgroundTextStyle": "light",

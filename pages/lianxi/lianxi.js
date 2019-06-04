@@ -29,15 +29,15 @@ Page({
       }
     })
     //获取喵喵老师二维码
-    wx.request({
-      url: api.getShare(),
-      success:(res)=>{
-        console.log(res)
-        this.setData({
-          shareUrl:res.data.re.miaomiao
-        })
-      }
-    })
+    // wx.request({
+    //   url: api.getShare(),
+    //   success:(res)=>{
+    //     console.log(res)
+    //     this.setData({
+    //       shareUrl:res.data.re.miaomiao
+    //     })
+    //   }
+    // })
   },
   //电话咨询函数
   phone(){
