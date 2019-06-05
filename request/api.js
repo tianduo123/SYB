@@ -90,7 +90,7 @@ function getcode(e){
 }
 //用户注册
 function register(a,b,c){
-  return API_BASE + `/user/register?admin_id=${BASE_ID}&openid=${a}&phone=${b}&password=${c}`
+  return API_BASE + `/user/registers?admin_id=${BASE_ID}&openid=${a}&phone=${b}&password=${c}`
 }
 //判断用户是否注册
 function isLogin(a){

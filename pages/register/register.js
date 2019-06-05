@@ -171,6 +171,11 @@ Page({
                 }
               }
             })
+          }else if(res.data.status==3){
+            wx.showToast({
+              title: '一个微信号只能注册一次哦',
+              icon:'none'
+            })
           }
         }
       })

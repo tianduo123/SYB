@@ -99,35 +99,6 @@ Page({
             icon:'none'
           })
         }
-        // if (res.data.status == 1) {
-        //   //注册成功，将userId存到缓存
-        //   wx.setStorage({
-        //     key: 'userId',
-        //     data: res.data.data,
-        //     success: () => {
-        //       console.log('存储成功')
-        //     },
-        //     fail: () => {
-        //       console.log('存储失败')
-        //     }
-        //   })
-        //   wx.showToast({
-        //     title: '登录成功',
-        //     success: () => {
-        //       setTimeout(() => {
-        //         console.log('跳转到我的页面')
-        //         wx.switchTab({
-        //           url: `../qiandao/qiandao`,
-        //         })
-        //         this.setData({
-        //           val: '',
-        //           val2: ''
-        //         })
-        //       }, 1500)
-
-        //     }
-        //   })
-        // }
       }
     })
   },
