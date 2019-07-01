@@ -149,6 +149,7 @@ Page({
     //获取详情
     wx.request({
       url: api.getSlqj(this.data.id, app.globalData.openid),
+      // url:'https://syb.shimokeji.cn/index.php/Api/index/eduDetail?id='+this.data.id+'&admin_id=15&openid=o_wP74n6nmiTlMPpb3eaySBzoFKg',
       success: (res) => {
         console.log(res)
         this.setData({

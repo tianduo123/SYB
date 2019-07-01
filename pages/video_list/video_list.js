@@ -15,6 +15,7 @@ Page({
     if (this.data.status == 0) {
       wx.request({
         url: api.getVideoId(),
+        // url:'https://syb.shimokeji.cn/index.php/Api/index/courseIndex?admin_id=15',
         success: (res) => {
           console.log('这是主打课视频列表', res)
           this.setData({
@@ -25,6 +26,7 @@ Page({
     } else if (this.data.status == 1) {
       wx.request({
         url: api.getFunctional(),
+        // url:'https://syb.shimokeji.cn/index.php/Api/index/edu?admin_id=15',
         success: (res) => {
           console.log('这是身临其境视频列表', res)
           this.setData({

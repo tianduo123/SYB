@@ -22,7 +22,8 @@
     "pages/myyuyue/myyuyue",
     "pages/video_list/video_list",
     "pages/register/register",
-    "pages/forgetPsd/forgetPsd"
+    "pages/forgetPsd/forgetPsd",
+    "pages/gameDetail/gameDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -65,8 +66,7 @@
     ]
   },
   "navigateToMiniProgramAppIdList": [
-    "wx3950a029465d5070",
-    "wx9f726f8d93b57acd"
+    "wx3950a029465d5070"
   ],
   "sitemapLocation": "sitemap.json"
 }

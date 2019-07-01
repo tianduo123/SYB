@@ -23,20 +23,6 @@ Page({
     this.setData({
       courseid:options.id
     })
-    //获取课程详情
-    wx.request({
-      url: api.getVideiDetail(this.data.courseid, app.globalData.openid),
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          detail: res.data.data.re,
-          zan: res.data.data.re.zan,
-          browser: res.data.data.re.browser
-        })
-        var article = JSON.parse(this.data.detail.content);
-        WxParse.wxParse('article', 'html', article, this, 5);
-      }
-    })
     //获取评论列表
     wx.request({
       url: api.commentList(options.id),
@@ -46,6 +32,26 @@ Page({
           commentList: res.data.re,
           comment: res.data.re.length
         })
+      }
+    })
+    //获取课程详情
+    this.getDetail()
+  },
+  //获取课程详情
+  getDetail(){
+    //获取课程详情
+    wx.request({
+      url: api.getVideiDetail(this.data.courseid, app.globalData.openid),
+      // url:'https://syb.shimokeji.cn/index.php/Api/index/course?admin_id=15&id='+this.data.courseid+'&openid=o_wP74n6nmiTlMPpb3eaySBzoFKg',
+      success: (res) => {
+        console.log(res)
+        this.setData({
+          detail: res.data.data.re,
+          zan: res.data.data.re.zan,
+          browser: res.data.data.re.browser
+        })
+        var article = JSON.parse(this.data.detail.content);
+        WxParse.wxParse('article', 'html', article, this, 5);
       }
     })
   },
@@ -201,31 +207,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function() {
-    //获取课程详情
-    wx.request({
-      url: api.getVideiDetail(this.data.courseid, app.globalData.openid),
-      success: (res) => {
-        console.log(res)
-        this.setData({
-          detail: res.data.data.re,
-        })
-        wx.getStorage({
-          key: this.data.detail.id,
-          success: (res) => {
-            console.log(res)
-            if (res.data) {
-              this.setData({
-                iszan: true
-              })
-            } else {
-              this.setData({
-                iszan: false
-              })
-            }
-          },
-        })
-      }
-    })
   },
 
   /**

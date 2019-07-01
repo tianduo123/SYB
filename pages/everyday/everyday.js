@@ -66,9 +66,6 @@ Page({
       url: api.look3(e.currentTarget.dataset.id),
       success: (res) => {
         console.log(res)
-        if (res.data.status == 1) {
-          this.getList()
-        }
       }
     })
   },
@@ -80,12 +77,7 @@ Page({
         console.log(res)
         wx.showToast({
           title: res.data.msg,
-          success: () => {
-            console.log('重新获取点赞数量')
-            //获取视频列表
-            this.getList()
 
-          }
         })
       }
     })

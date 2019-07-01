@@ -19,7 +19,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
     //获取当前时间
     var myDate = new Date()
     var y = 1900 + myDate.getYear()
@@ -28,13 +27,16 @@ Page({
     this.setData({
       date: y + '-' + m.substring(m.length - 2, m.length) + '-' + d.substring(d.length - 2, d.length)
     })
-    //获取预约页面顶部图片
+    this.getImg()
+  },
+  //获取预约页面顶部图片
+  getImg(){
     wx.request({
       url: api.getImg(),
-      success:(res)=>{
+      success: (res) => {
         console.log(res.data.re.image)
         this.setData({
-          imageurl:res.data.re.image
+          imageurl: res.data.re.image
         })
       }
     })
@@ -129,6 +131,23 @@ console.log('onhide页面隐藏')
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
+    wx.showLoading({
+      title: '努力加载中',
+      success: () => {
+        console.log('')
+        this.getImg()
+        this.setData({
+          val: '',
+          name1: '',
+          name3: '',
+          tel: ''
+        })
+        setTimeout(function () {
+          wx.hideLoading()
+          wx.stopPullDownRefresh()
+        }, 1000)
+      }
+    })
 
   },
 

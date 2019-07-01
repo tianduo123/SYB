@@ -29,9 +29,9 @@ function getVideoList(){
   return API_BASE + `/index/courseIndex?admin_id=${BASE_ID}`
 }
 //分类下视频id
-function getVideoId(a){
-  return API_BASE + `/index/courseIndex?admin_id=${BASE_ID}&cid=${a}`
-}
+function getVideoId(){
+  return API_BASE + `/index/courseIndex?admin_id=${BASE_ID}`
+} 
 //获取视频详情
 function getVideiDetail(e,f){
   return API_BASE + `/index/course?admin_id=${BASE_ID}&id=${e}&openid=${f}`
@@ -285,6 +285,10 @@ function newP(){
 function getBanner2(){
   return API_BASE + `/Index/pinCourse?admin_id=${BASE_ID}`
 }
+//获取小游戏详情
+function getGame(){
+  return API_BASE + `/Active/pinhanzi`
+}
 module.exports = {
   API_IMG, BASE_ID,
   getBanner,getTab,getFunctional,getImg,getBannerDetail,getAddress,getVideoList,getFuncdetail,getVideiDetail,like,
@@ -292,5 +296,5 @@ module.exports = {
   resetPsd,getRule,goodsList,getGoods,getUserScore,getLog,getUserLog,qiandao,isQiandao,submit,share,nearList,message,
   isDone, getScore, isGet, tuijian, isMake, cancel, addBrowser, addBrowser2, comment2, commentList2, like2, getZan,getZan2,        
   getNscore, getShare, getVideoId, getSlqj, getGg, getGgDetail, ggClick, nearDetail, look1, look2, look3, look4, look5, look6,    
-  look7, look8, hasPin, myyuyeu, newP, getBanner2, getClass
+  look7, look8, hasPin, myyuyeu, newP, getBanner2, getClass, getGame
 }

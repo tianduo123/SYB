@@ -1,7 +1,8 @@
 <!--pages/everyday/everyday.wxml-->
+<wxs module='hotel' src='../everyday/everyday.wxs'></wxs>
 <view wx:for='{{contentList}}' wx:key>
   <view class='title3'>{{item.title}}</view>
-  <video controls class='video' src='{{item.video}}' data-id='{{item.id}}' bindplay='play' poster='{{imgUrl+item.image}}' object-fit='cover' enable-play-gesture='true' ></video>
+  <video controls class='video' src='{{hotel.Sub(item.video)=="Uploads"?"https://syb.qhkltn.com/"+item.video:item.video}}'data-id='{{item.id}}' bindplay='play' poster='{{imgUrl+item.image}}' object-fit='cover' enable-play-gesture='true'></video>
   <view class='title2'>上传时间：{{item.update_time}}</view>
   <view class='line'></view>
   <!-- 点赞区 -->

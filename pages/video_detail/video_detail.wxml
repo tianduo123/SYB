@@ -1,7 +1,6 @@
-
 <import src="../../wxParse/wxParse.wxml" />
-
-<video controls class='video' src='{{detail.video}}' bindplay='browser' poster='{{video_url+detail.image}}' object-fit='cover'></video>
+<wxs module='hotel' src='../everyday/everyday.wxs'></wxs>
+<video controls class='video' src='{{hotel.Sub(detail.video)=="Uploads"?"https://syb.qhkltn.com/"+detail.video:detail.video}}' bindplay='browser' poster='{{video_url+detail.image}}' object-fit='cover'></video>
 <!-- <view class='title'>{{detail.}}</view> -->
 <view class='title2'>上传时间：{{detail.update_time}}</view>
 <view class='line'></view>
