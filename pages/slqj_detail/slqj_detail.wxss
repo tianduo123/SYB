@@ -26,6 +26,16 @@ button{
   border-radius: 0;
   outline: none;
 }
+.button{
+  width: 20%;
+  height: 60rpx;
+  font-size: 28rpx;
+  border: 1px solid #FFCC00;
+  text-align: center;
+  line-height: 60rpx;
+  border-radius: 10rpx;
+  color: #FFCC00
+}
 .hover{
   background: #fff
 }
@@ -79,15 +89,7 @@ button{
   background: #fff
 }
 .inp{
-  margin-left: 30rpx;
-  width: 60%;
-}
-.comment{
-  width: 18%;
-  height: 60rpx;
-  border: 1px solid #FFCC00;
-  text-align: center;
-  line-height: 60rpx;
-  border-radius: 10rpx;
-  color: #FFCC00
+  margin-left: 20rpx;
+  width: 70%;
+  font-size: 28rpx
 }

@@ -41,7 +41,27 @@ Page({
       }
     })
   },
-
+  //用户授权
+  getUserInfo(res) {
+    console.log(res)
+    if (res.detail.rawData) {
+      this.setData({
+        userInfo: res.detail.userInfo
+      })
+      //将用户信息存到缓存
+      wx.setStorage({
+        key: 'userInfo',
+        data: res.detail.userInfo,
+      })
+      //调用接口保存用户授权信息
+      wx.request({
+        url: api.saveUser(app.globalData.openid, res.detail.userInfo.nickName, res.detail.userInfo.avatarUrl),
+        success: (res) => {
+          console.log(res)
+        }
+      })
+    }
+  },
   //视频点赞
   video_zan() {
     console.log("视频点赞")
@@ -97,40 +117,55 @@ Page({
   },
   //评论
   comment() {
-    //判断是否有输入
-    if (this.data.val) {
-      wx.request({
-        url: api.look6(app.globalData.openid, this.data.id, this.data.val),
-        success: (res) => {
-          wx.showToast({
-            title: '评论成功',
-            success: () => {
-              //清空输入
-              this.setData({
-                val: ''
-              })
-              //更新评论列表
-              wx.request({
-                url: api.look7(this.data.id),
-                success: (res) => {
-                  console.log(res)
+    //先判断是否授权在评论
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        this.setData({
+          userInfo:true
+        })
+        //判断是否有输入
+        if (this.data.val) {
+          wx.request({
+            url: api.look6(app.globalData.openid, this.data.id, this.data.val),
+            success: (res) => {
+              wx.showToast({
+                title: '评论成功',
+                success: () => {
+                  //清空输入
                   this.setData({
-                    commentList: res.data.re,
-                    comment: res.data.re.length
+                    val: ''
+                  })
+                  //更新评论列表
+                  wx.request({
+                    url: api.look7(this.data.id),
+                    success: (res) => {
+                      console.log(res)
+                      this.setData({
+                        commentList: res.data.re,
+                        comment: res.data.re.length
+                      })
+                    }
                   })
                 }
               })
             }
           })
+        } else {
+          wx.showToast({
+            title: '请输入内容后在评论哦',
+            icon: 'none'
+          })
         }
-      })
-    } else {
-      wx.showToast({
-        title: '请输入内容后在评论哦',
-        icon: 'none'
-      })
-    }
-
+      },
+      fail:res=>{
+        console.log(res)
+        this.setData({
+          userInfo:false
+        })
+      }
+    })
+ 
   },
 
   /**

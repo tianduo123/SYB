@@ -25,9 +25,9 @@ Page({
         key: 'userInfo',
         data: res.detail.userInfo,
       })
-      this.setData({
-        isImpower: true
-      })
+      // this.setData({
+      //   isImpower: true
+      // })
       //调用接口保存用户授权信息
       wx.request({
         url: api.saveUser(app.globalData.openid, res.detail.userInfo.nickName, res.detail.userInfo.avatarUrl),
@@ -37,33 +37,11 @@ Page({
       })
     }
   },
-
-  //判断用户是否授权(通过缓存)
-  isImpower(){
-    wx.getStorage({
-      key: 'userInfo',
-      success:(res)=>{
-        console.log('缓存中的用户信息是',res)
-        this.setData({
-          isImpower:true,
-
-        })
-      },
-      fail:()=>{
-        console.log('缓存中没有用户信息')
-        this.setData({
-          isImpower:false
-        })
-      }
-    })
-  },
-
-
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.isImpower()
+    // this.isImpower()
     this.setData({
       Height:app.globalData.Height
     })
@@ -82,139 +60,126 @@ Page({
   //签到
   qiandao(){
     console.log(this.data.userId)
-    if(this.data.userId){
-      //已绑定手机号，直接签到
-      wx.request({
-        url: api.qiandao(app.globalData.openid, this.data.userId),
-        success: (res) => {
-          if (res.data.status == 1) {
-            wx.showToast({
-              title: '签到成功',
-            })
-            this.setData({
-              days: res.data.re.sign_day,
-              isqiandao: true,
-            })
-            //将签到状态存入缓存，onShow取缓存用于判断显示签到与红包样式
-            wx.setStorage({
-              key: 'isqiandao',
-              data: res.data.status,
-              success: function (res) {
-                console.log('存储签到状态成功')
-              },
-            })
-            //将签到天数存入缓存，onShow取缓存用于显示连续签到天数
-            wx.setStorage({
-              key: 'days',
-              data: res.data.re.sign_day,
-              success: function (res) {
-                console.log('存储签到天数成功')
-              },
-              fail: function (res) { },
-              complete: function (res) { },
-            })
-            //更新用户成长豆
-            wx.request({
-              url: api.getUserScore(this.data.userId),
-              success: (res) => {
-                console.log(res)
-                this.setData({
-                  score: res.data.data.score
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        console.log(res)
+        if (this.data.userId) {
+          //已绑定手机号，直接签到
+          wx.request({
+            url: api.qiandao(app.globalData.openid, this.data.userId),
+            success: (res) => {
+              if (res.data.status == 1) {
+                wx.showToast({
+                  title: '签到成功',
                 })
+                this.setData({
+                  days: res.data.re.sign_day,
+                  isqiandao: true,
+                })
+                //将签到状态存入缓存，onShow取缓存用于判断显示签到与红包样式
+                wx.setStorage({
+                  key: 'isqiandao',
+                  data: res.data.status,
+                  success: function (res) {
+                    console.log('存储签到状态成功')
+                  },
+                })
+                //将签到天数存入缓存，onShow取缓存用于显示连续签到天数
+                wx.setStorage({
+                  key: 'days',
+                  data: res.data.re.sign_day,
+                  success: function (res) {
+                    console.log('存储签到天数成功')
+                  },
+                  fail: function (res) { },
+                  complete: function (res) { },
+                })
+                //更新用户成长豆
+                wx.request({
+                  url: api.getUserScore(this.data.userId),
+                  success: (res) => {
+                    console.log(res)
+                    this.setData({
+                      score: res.data.data.score
+                    })
+                  }
+                })
+              } else {
+                console.log('今日已签到')
               }
-            })
-          } else {
-            console.log('今日已签到')
-          }
-          console.log(res)
+              console.log(res)
 
+            }
+          })
+        } else {
+          wx.navigateTo({
+            url: '../login/login',
+          })
         }
-      })
-    }else{
-      wx.navigateTo({
-        url: '../login/login',
-      })
-      // wx.showModal({
-      //   title: '需注册手机号才能进行该操作',
-      //   content: '是否现在注册',
-      //   success:(res)=>{
-      //     if(res.confirm){
-      //       //用户点击了确定，跳转绑定手机号页面
-      //       console.log('用户点击了确定')
-      //       wx.navigateTo({
-      //         url: '../login/login',
-      //       })
-      //     }else{
-      //       console.log('用户点击了取消')
-      //     }
-      //   }
-      // })
-    }
-  },
-  //绑定手机号(注册)
-  toLogin(){
-    wx.navigateTo({
-      url: '../login/login',
+      },
+      fail:(res)=>{
+        console.log(res)
+        wx.showToast({
+          title: '请点击上方的授权后再进行该操作哦',
+          icon:'none'
+        })
+      }
     })
   },
+
   //积分兑换
   jifen(){
     console.log(this.data.userId)
-    //onShow每次都将userId setData,判断data中有没有userId
-    if(this.data.userId){
-      wx.navigateTo({
-        url: `../getgoods/getgoods?userId=${this.data.userId}`,
-      })
-    }else{
-      //没有拿到userId，提示用户去登录
-      wx.navigateTo({
-        url: '../login/login',
-      })
-      // wx.showModal({
-      //   title: '需注册手机号才能进行该操作',
-      //   content: '是否现在注册',
-      //   success:(res)=>{
-      //     if(res.confirm){
-      //       //用户点击了确定，跳转绑定手机号页面
-      //       console.log('确定')
-      //       wx.navigateTo({
-      //         url: '../login/login',
-      //       })
-      //     }else{
-      //       console.log('用户点击了取消')
-      //     }
-      //   }
-      // })
-    }
+    //先判断是否授权，在判断是否登录
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        //onShow每次都将userId setData,判断data中有没有userId
+        if (this.data.userId) {
+          wx.navigateTo({
+            url: `../getgoods/getgoods?userId=${this.data.userId}`,
+          })
+        } else {
+          //没有拿到userId，提示用户去登录
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }
+      },
+      fail:(res)=>{
+        wx.showToast({
+          title: '请点击上方的授权后再进行该操作哦',
+          icon: 'none'
+        })
+      }
+    })
   },
   //查看成长豆排行榜
   toMore() {
-    if(this.data.userId){
-      wx.navigateTo({
-        url: `../more_rank/more_rank?userid=${this.data.userId}`,
-      })
-    }else{
-      //没有绑定手机号 提示用户绑定
-      wx.navigateTo({
-        url: '../login/login',
-      })
-      // wx.showModal({
-      //   title: '需注册手机号后才能进行该操作',
-      //   content: '是否现在注册',
-      //   success:(res)=>{
-      //     if(res.confirm){
-      //       //用户点击了确定，跳转绑定手机号页面
-      //       console.log('确定')
-      //       wx.navigateTo({
-      //         url: '../login/login',
-      //       })
-      //     }else{
-      //       console.log('用户点击了取消')
-      //     }
-      //   }
-      // })
-    }
- 
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        console.log(res)
+        if (this.data.userId) {
+          wx.navigateTo({
+            url: `../more_rank/more_rank?userid=${this.data.userId}`,
+          })
+        } else {
+          //没有绑定手机号 提示用户绑定
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }
+      },
+      fail:res=>{
+        console.log(res)
+        wx.showToast({
+          title: '请点击上方的授权后再进行该操作哦',
+          icon: 'none'
+        })
+      }
+    })
   },
   //成长豆规则
   rule(){
@@ -377,93 +342,95 @@ Page({
   //去完成-->推荐人
   complete2(){
     console.log('推荐人')
-    if (this.data.userId) {
-      //判断当前用户是否填写过推荐人
-      wx.request({
-        url: api.isMake(this.data.userId),
-        success: (res) => {
-          console.log(res)
-          if (res.data.re == 0) {
-            // 0 --> 当前用户未填写过推荐人 --> 显示推荐人input
-            this.setData({
-              show: ''
-            })
-          } else {
-            //当前用户已经填写过推荐人 --> 提示不能再填写
-            wx.showToast({
-              title: '您已经填写过推荐人啦',
-              icon: 'none'
-            })
-          }
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        if (this.data.userId) {
+          //判断当前用户是否填写过推荐人
+          wx.request({
+            url: api.isMake(this.data.userId),
+            success: (res) => {
+              console.log(res)
+              if (res.data.re == 0) {
+                // 0 --> 当前用户未填写过推荐人 --> 显示推荐人input
+                this.setData({
+                  show: ''
+                })
+              } else {
+                //当前用户已经填写过推荐人 --> 提示不能再填写
+                wx.showToast({
+                  title: '您已经填写过推荐人啦',
+                  icon: 'none'
+                })
+              }
+            }
+          })
+        } else {
+          //没有拿到userId，提示用户去手机号
+          wx.navigateTo({
+            url: '../login/login',
+          })
         }
-      })
-    } else {
-      //没有拿到userId，提示用户去手机号
-      wx.navigateTo({
-        url: '../login/login',
-      })
-      // wx.showModal({
-      //   title: '需注册手机号才能进行该操作',
-      //   content: '是否现在注册',
-      //   success: (res) => {
-      //     if (res.confirm) {
-      //       //用户点击了确定，跳转绑定手机号页面
-      //       console.log('确定')
-      //       wx.navigateTo({
-      //         url: '../login/login',
-      //       })
-      //     } else {
-      //       console.log('用户点击了取消')
-      //     }
-      //   }
-      // })
-    }
+      },
+      fail:res=>{
+        wx.showToast({
+          title: '请点击上方的授权后再进行该操作哦',
+          icon: 'none'
+        })
+      }
+    })
+  
 
   },
   //去完成-->提建议
   complete3() {
-
-    if (this.data.userId) {
-      wx.navigateTo({
-        url: `../message/message?userId=${this.data.userId}`,
-      })
-    } else {
-      //没有拿到userId，提示用户去手机号
-      wx.navigateTo({
-        url: '../login/login',
-      })
-    }
-    
-  
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        if (this.data.userId) {
+          wx.navigateTo({
+            url: `../message/message?userId=${this.data.userId}`,
+          })
+        } else {
+          //没有拿到userId，提示用户去手机号
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }
+      },
+      fail:res=>{
+        wx.showToast({
+          title: '请点击上方的授权后再进行该操作哦',
+          icon: 'none'
+        })
+      }
+    })
   },
   //留言
   toMsg() {
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        if (this.data.userId) {
+          wx.navigateTo({
+            url: `../message/message?userId=${this.data.userId}`,
+          })
+        } else {
+          //没有拿到userId，提示用户去手机号
+          wx.navigateTo({
+            url: '../login/login',
+          })
+        }
+      },
+      fail:res=>{
+        console.log(res)
+        wx.showToast({
+          title: '请点击上方的授权后再进行该操作哦',
+          icon: 'none'
+        })
+      }
+    })
 
-    if (this.data.userId) {
-      wx.navigateTo({
-        url: `../message/message?userId=${this.data.userId}`,
-      })
-    } else {
-      //没有拿到userId，提示用户去手机号
-      wx.navigateTo({
-        url: '../login/login',
-      })
-      // wx.showModal({
-      //   title: '需绑定手机号才能进行该操作',
-      //   content: '是否现在绑定',
-      //   success: (res) => {
-      //     if (res.confirm) {
-      //       //用户点击了确定，跳转绑定手机号页面
-      //       console.log('确定')
-      //       wx.navigateTo({
-      //         url: '../login/login',
-      //       })
-      //     } else {
-      //       console.log('用户点击了取消')
-      //     }
-      //   }
-      // })
-    }
 
 
   },

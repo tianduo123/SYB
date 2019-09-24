@@ -46,6 +46,17 @@ button{
   font-size: 24rpx;
   color: #999999
 }
+.button{
+  width: 20%;
+  height: 65rpx;
+  font-size: 28rpx;
+  color: #ff9900;
+  border: 1px solid #ff9900;
+  border-radius: 10rpx;
+  line-height: 65rpx;
+  text-align: center
+}
+
 
 .btn{
   width: 100%;
@@ -149,15 +160,4 @@ button{
   font-size: 28rpx;
   margin-left: 20rpx;
   margin-top: 18rpx
-}
-
-.button{
-  width: 145rpx;
-  height: 65rpx;
-  font-size: 28rpx;
-  color: #ff9900;
-  border: 1px solid #ff9900;
-  border-radius: 10rpx;
-  line-height: 65rpx;
-  text-align: center
 }

@@ -1,24 +1,14 @@
 <!--pages/index/index.wxml-->
 <!-- 新人福利 -->
-<view class='newP' wx:if='{{show}}' bindtap='tologin'>{{msg}}</view>
+<!-- <view class='newP' wx:if='{{show}}' bindtap='tologin'>{{msg}}</view> -->
+<button class='newP' wx:if='{{show}}'open-type="{{userInfo?'':'getUserInfo'}}"
+ bindgetuserinfo="{{userInfo?'':'getUserInfo'}}" hover-class="none" bindtap="{{userInfo?'tologin':''}}">{{msg}}</button>
 <!-- 顶部轮播图 -->
 <swiper class='banner' autoplay='true' indicator-dots='true'>
   <swiper-item wx:for='{{bannerList}}' wx:key='{{index}}' bindtap='toGoodsDetail' data-id='{{item.id}}'>
     <image src='{{imgurl+item.image}}' style='height:100%;width:100%'></image>
   </swiper-item>
 </swiper>
-<!-- 授权蒙层 -->
-<view class='getU' style='height:{{Height*2}}rpx' wx:if='{{isShow}}'>
-  <view class='getU_wrap'>
-    <view class='getU_t'>需要您的授权</view>
-    <view class='getU_c'>
-      <view>为了提供更好的服务</view>
-      <view>请在稍后的提示框中点击"允许"</view>
-    </view>
-    <image style='height:400rpx;width:500rpx' src='../../icon/get.png'></image>
-    <button class='getU_btn' open-type='getUserInfo' bindgetuserinfo='getUserInfo'>我知道了</button>
-  </view>
-</view>
 
 <!-- 每日即时看、拼团 -->
 <view class='first'>
@@ -47,7 +37,7 @@
   </swiper>
 </view>
 <!-- 附近商家 -->
-<view class='second'>
+<view class='second' wx:if='{{showFujin}}'>
   <view class='title'>
     <image src='../../icon/addr.png' style='width:25rpx;height:25rpx'></image>
     <view style='margin-left:20rpx'>离我最近</view>

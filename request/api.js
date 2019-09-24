@@ -289,6 +289,10 @@ function getBanner2(){
 function getGame(){
   return API_BASE + `/Active/pinhanzi`
 }
+//判断离我最近是否显示
+function fujin(){
+  return API_BASE + `/index/show_fujin?admin_id=${BASE_ID}`
+}
 module.exports = {
   API_IMG, BASE_ID,
   getBanner,getTab,getFunctional,getImg,getBannerDetail,getAddress,getVideoList,getFuncdetail,getVideiDetail,like,
@@ -296,5 +300,5 @@ module.exports = {
   resetPsd,getRule,goodsList,getGoods,getUserScore,getLog,getUserLog,qiandao,isQiandao,submit,share,nearList,message,
   isDone, getScore, isGet, tuijian, isMake, cancel, addBrowser, addBrowser2, comment2, commentList2, like2, getZan,getZan2,        
   getNscore, getShare, getVideoId, getSlqj, getGg, getGgDetail, ggClick, nearDetail, look1, look2, look3, look4, look5, look6,    
-  look7, look8, hasPin, myyuyeu, newP, getBanner2, getClass, getGame
+  look7, look8, hasPin, myyuyeu, newP, getBanner2, getClass, getGame, fujin
 }

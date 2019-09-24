@@ -8,7 +8,8 @@ Page({
    */
   data: {
     imgurl: api.API_IMG,
-    show:true
+    show:true,
+    showFujin:false
   },
   //获取首页3大分类
   getClass(){
@@ -26,7 +27,7 @@ Page({
   },
   //获取用户信息
   getUserInfo(res) {
-    // console.log(res)
+    console.log(res)
     if (res.detail.rawData) {
       //将用户信息存到缓存
       wx.setStorage({
@@ -34,7 +35,7 @@ Page({
         data: res.detail.userInfo,
       })
       this.setData({
-        isShow: false
+        userInfo: true
       })
       //调用接口保存用户授权信息
       wx.request({
@@ -42,6 +43,10 @@ Page({
         success: (res) => {
           // console.log(res)
         }
+      })
+    }else{
+      this.setData({
+        userInfo:false
       })
     }
   },
@@ -170,14 +175,38 @@ Page({
   },
   //新人福利跳转注册页
   tologin(){
-    wx.navigateTo({
-      url: '../login/login',
+    if(this.data.userInfo){
+      wx.navigateTo({
+        url: '../login/login',
+      })
+    }
+  },
+  //判断是否显示附近商家
+  fujin(){
+    wx.request({
+      url: api.fujin(),
+      success:res=>{
+        console.log(res)
+        if(res.data.re.show_fujin==0){
+          console.log('不显示附近商家')
+          this.setData({
+            showFujin:false
+          })
+        }else{
+          console.log('显示附近商家')
+          this.setData({
+            showFujin:true
+          })
+        }
+      }
     })
   },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    //判断是否显示附近商家
+    this.fujin()
     //获取首页3大分类
     this.getClass()
     //判断当前商家是否开通省银子功能
@@ -252,32 +281,30 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-   wx.getStorage({
-     key: 'userId',
-     success:(res)=>{
-      //  console.log('userId是',res)
-       if(res.data){
-         this.setData({
-           show:false
-         })
-       }
-     },
-   })
+  //  wx.getStorage({
+  //    key: 'userId',
+  //    success:(res)=>{
+  //     //  console.log('userId是',res)
+  //      if(res.data){
+  //        this.setData({
+  //          show:false
+  //        })
+  //      }
+  //    },
+  //  })
     //从缓存中拿用户userInfo数据
     wx.getStorage({
       key: 'userInfo',
       success: (res) => {
         // console.log('拿到授权信息')
-        //拿到用户微信信息 --> 不显示授权蒙层
         this.setData({
-          isShow: false
+          userInfo: true
         })
       },
       fail: (res) => {
         // console.log('没拿到授权信息')
-        //没拿到用户微信信息 --> 显示授权蒙层
         this.setData({
-          isShow: true
+          userInfo: false
         })
       }
     })
@@ -307,7 +334,8 @@ Page({
       success:()=>{
         //重新获取首页轮播
         this.getBanner(),
-        this.getClass()
+        this.getClass(),
+        this.fujin()
         setTimeout(()=>{
           wx.hideLoading()
           wx.stopPullDownRefresh()

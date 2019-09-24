@@ -48,6 +48,8 @@
   </view>
 </view>
 <view class='comment'>
-  <input placeholder='我要评论' bindinput='getVal' value='{{val}}' style='font-size:28rpx'></input>
-  <view class='button' bindtap='comment'>评论</view>
+  <input placeholder='我要评论' bindinput='getVal' value='{{val}}' style='font-size:28rpx;width:70%;margin-left:20rpx'></input>
+  <button class="button" hover-class="none" open-type="{{userInfo?'':'getUserInfo'}}"
+   bindgetuserinfo="{{userInfo?'':'getUserInfo'}}" bindtap="comment">评论</button>
+  <!-- <view class='button' bindtap='comment'>评论</view> -->
 </view>

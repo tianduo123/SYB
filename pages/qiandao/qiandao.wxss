@@ -257,6 +257,9 @@ page{
   justify-content: space-around;
   flex-direction: column
 }
+button::after {
+  border: none;
+}
 .avatar{
   width:120rpx;
   height:120rpx;
@@ -337,7 +340,7 @@ page{
 }
 
 /* 授权样式 */
-.getU {
+/* .getU {
   width: 100%;
   background: rgba(0, 0, 0, 0.4);
   position: fixed;
@@ -384,4 +387,4 @@ page{
   color: #fff;
   border-radius: 50rpx;
   font-size: 30rpx;
-}
+} */

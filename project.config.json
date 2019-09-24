@@ -39,7 +39,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 23,
+			"current": 24,
 			"list": [
 				{
 					"id": -1,
@@ -199,6 +199,12 @@
 					"name": "忘记密码",
 					"pathName": "pages/forgetPsd/forgetPsd",
 					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/video_detail2/video_detail2",
+					"pathName": "pages/video_detail2/video_detail2",
 					"scene": null
 				}
 			]

@@ -33,5 +33,7 @@
 </view>
 <view class='bottom'>
   <input placeholder='我要评论' class='inp' bindinput='getVal' value='{{val}}'></input>
-  <view class='comment' bindtap='comment'>评论</view>
+    <button class="button" hover-class="none" open-type="{{userInfo?'':'getUserInfo'}}"
+   bindgetuserinfo="{{userInfo?'':'getUserInfo'}}" bindtap="comment">评论</button>
+  <!-- <view class='comment' bindtap='comment'>评论</view> -->
 </view>

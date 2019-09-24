@@ -32,6 +32,27 @@ Page({
       }
     })
   },
+  //用户授权
+  getUserInfo(res) {
+    console.log(res)
+    if (res.detail.rawData) {
+      this.setData({
+        userInfo: res.detail.userInfo
+      })
+      //将用户信息存到缓存
+      wx.setStorage({
+        key: 'userInfo',
+        data: res.detail.userInfo,
+      })
+      //调用接口保存用户授权信息
+      wx.request({
+        url: api.saveUser(app.globalData.openid, res.detail.userInfo.nickName, res.detail.userInfo.avatarUrl),
+        success: (res) => {
+          console.log(res)
+        }
+      })
+    }
+  },
   //获取用户评论内容
   getVal(e){
     console.log(e)
@@ -42,38 +63,53 @@ Page({
   //评论
   comment(){
     console.log(this.data.val)
-    if(!this.data.val){
-      wx.showToast({
-        title: '请输入内容后再评论哦！',
-        icon:'none'
-      })
-    }else{
-      wx.request({
-        url: api.comment2(app.globalData.openid,this.data.val,this.data.id),
-        success:(res)=>{
-          console.log(res)
-          this.setData({
-            val:''
-          })
+    //先判断用户是否授权
+    wx.getStorage({
+      key: 'userInfo',
+      success:(res)=>{
+        this.setData({
+          userInfo: true
+        })
+        if (!this.data.val) {
           wx.showToast({
-            title: '评论成功',
-            success:()=>{
-              //刷新评论列表
-              wx.request({
-                url: api.commentList2(this.data.id),
-                success: (res) => {
-                  console.log(res)
-                  this.setData({
-                    commentList: res.data.re,
-                    num:res.data.re.length
+            title: '请输入内容后再评论哦！',
+            icon: 'none'
+          })
+        } else {
+          wx.request({
+            url: api.comment2(app.globalData.openid, this.data.val, this.data.id),
+            success: (res) => {
+              console.log(res)
+              this.setData({
+                val: ''
+              })
+              wx.showToast({
+                title: '评论成功',
+                success: () => {
+                  //刷新评论列表
+                  wx.request({
+                    url: api.commentList2(this.data.id),
+                    success: (res) => {
+                      console.log(res)
+                      this.setData({
+                        commentList: res.data.re,
+                        num: res.data.re.length
+                      })
+                    }
                   })
                 }
               })
             }
           })
         }
-      })
-    }
+      },
+      fail:res=>{
+        this.setData({
+          userInfo: false
+        })
+      }
+    })
+
   },
   //点赞
   zan(){

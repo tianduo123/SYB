@@ -3,6 +3,21 @@ page{
   background: #eee;
   padding-bottom: 30rpx
 }
+button::after{
+  border: none;
+}
+button{
+  border-radius: 0
+}
+.newP{
+  width: 100%;
+  height: 60rpx;
+  background: #FF9933;
+  line-height: 60rpx;
+  text-align: center;
+  font-size: 28rpx;
+  color: #fff
+}
 .banner {
   width: 100%;
   height: 360rpx;
@@ -49,54 +64,6 @@ page{
   text-align: center;
   color: #fff
 }
-.getU {
-  width: 100%;
-  background: rgba(0, 0, 0, 0.4);
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  z-index: 99
-}
-.getU_wrap {
-  width: 80%;
-  height: 800rpx;
-  background: #fff;
-  border-radius: 20rpx;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.getU_t {
-  width: 100%;
-  height: 80rpx;
-  border-bottom: 1px solid #eee;
-  text-align: center;
-  line-height: 80rpx;
-  font-size: 28rpx;
-  color: #666;
-}
-.getU_c {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 26rpx;
-  color: #666;
-}
-.getU_btn {
-  width: 400rpx;
-  height: 70rpx;
-  text-align: center;
-  line-height: 70rpx;
-  background: #3c0;
-  color: #fff;
-  border-radius: 50rpx;
-  font-size: 30rpx;
-}
 .icon {
   width: 100%;
   display: flex;
@@ -114,15 +81,7 @@ page{
   border-radius: 50%;
   overflow: hidden;
 }
-.newP{
-  width: 100%;
-  height: 60rpx;
-  background: #FF9933;
-  line-height: 60rpx;
-  text-align: center;
-  font-size: 28rpx;
-  color: #fff
-}
+
 .first{
   width: 90%;
   height: 150rpx;
@@ -156,7 +115,7 @@ page{
   width: 90%;
   height: 400rpx;
   border-radius: 10rpx;
-  margin: 0 auto;
+  margin: 30rpx auto;
   background: #fff;
   box-shadow: 10rpx 10rpx 5rpx #ccc;
   display: flex;

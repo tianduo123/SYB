@@ -1,8 +1,10 @@
 <image src='../../icon/rule.png' class='rule' bindtap='rule'></image>
 <view class='userInfo'>
-  <image src='{{userInfo.avatarUrl}}' class='avatar'>
+  <image src='{{userInfo?userInfo.avatarUrl:"/icon/avatar.png"}}' class='avatar'>
   </image>
-  <view style='font-size:28rpx;color:#eeeeee;margin-top:10rpx'>{{userInfo.nickName}}</view>
+  <button style='font-size:28rpx;color:#eeeeee;margin-top:10rpx;background-color: transparent'
+   hover-class="none" open-type="{{userInfo?'':'getUserInfo'}}" bindgetuserinfo="{{userInfo?'':'getUserInfo'}}">
+  {{userInfo?userInfo.nickName:"点击授权"}}</button>
   <view style='font-size:30rpx;font-weight:bold;color:#ffffff;margin-top:20rpx;width:100%;text-align:center' bindtap='toScoreDetail'>
     成长豆：
     <view style='font-size:32rpx;font-weight:bold;color:#FFFF00;display:inline-block'>{{score}}</view>
@@ -199,16 +201,4 @@
   </view>
 </view>
 
-<!-- 授权蒙层 -->
-<view class='getU' style='height:{{Height*2}}rpx' wx:if='{{!isImpower}}'>
-  <view class='getU_wrap'>
-    <view class='getU_t'>需要您的授权</view>
-    <view class='getU_c'>
-      <view>为了提供更好的服务</view>
-      <view>请在稍后的提示框中点击"允许"</view>
-    </view>
-    <image style='height:400rpx;width:500rpx' src='../../icon/get.png'></image>
-    <button class='getU_btn' open-type='getUserInfo' bindgetuserinfo='getUserInfo'>我知道了</button>
-  </view>
-</view>
 
