@@ -193,26 +193,34 @@ Page({
           wx.request({
             url: api.comment(app.globalData.openid, this.data.val, this.data.courseid),
             success: (res) => {
-              wx.showToast({
-                title: '评论成功',
-                success: () => {
-                  //清空输入
-                  this.setData({
-                    val: ''
-                  })
-                  //更新评论列表
-                  wx.request({
-                    url: api.commentList(this.data.courseid),
-                    success: (res) => {
-                      console.log(res)
-                      this.setData({
-                        commentList: res.data.re,
-                        comment: res.data.re.length
-                      })
-                    }
-                  })
-                }
-              })
+              console.log(res)
+              if(res.data.re.status==3){
+                wx.showToast({
+                  title: '您评论的内容涉及敏感词汇,请重新输入',
+                  icon: 'none'
+                })
+              }else{
+                wx.showToast({
+                  title: '评论成功',
+                  success: () => {
+                    //清空输入
+                    this.setData({
+                      val: ''
+                    })
+                    //更新评论列表
+                    wx.request({
+                      url: api.commentList(this.data.courseid),
+                      success: (res) => {
+                        console.log(res)
+                        this.setData({
+                          commentList: res.data.re,
+                          comment: res.data.re.length
+                        })
+                      }
+                    })
+                  }
+                })
+              }    
             }
           })
         } else {

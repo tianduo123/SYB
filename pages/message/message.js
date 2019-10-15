@@ -34,21 +34,28 @@ Page({
       success:(res)=>{
         console.log(res)
        if(res.data.status==1){
-         //提交成功
-         wx.showToast({
-           title: '提交成功',
-           success:()=>{
-             this.setData({
-               val:'',
-               userVal:''
-             })
-             setTimeout(()=>{
-               wx.switchTab({
-                 url: '../qiandao/qiandao',
+         if(res.data.re.status==3){
+           wx.showToast({
+             title: '您评论的内容涉及敏感词汇,请重新输入',
+             icon: 'none'
+           })
+         }else{
+           //提交成功
+           wx.showToast({
+             title: '提交成功',
+             success: () => {
+               this.setData({
+                 val: '',
+                 userVal: ''
                })
-             },1500)
-           }
-         })
+               setTimeout(() => {
+                 wx.switchTab({
+                   url: '../qiandao/qiandao',
+                 })
+               }, 1500)
+             }
+           })
+         }
        }else{
          wx.showToast({
            title: res.data.msg,

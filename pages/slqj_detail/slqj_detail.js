@@ -80,25 +80,33 @@ Page({
             url: api.comment2(app.globalData.openid, this.data.val, this.data.id),
             success: (res) => {
               console.log(res)
-              this.setData({
-                val: ''
-              })
-              wx.showToast({
-                title: '评论成功',
-                success: () => {
-                  //刷新评论列表
-                  wx.request({
-                    url: api.commentList2(this.data.id),
-                    success: (res) => {
-                      console.log(res)
-                      this.setData({
-                        commentList: res.data.re,
-                        num: res.data.re.length
-                      })
-                    }
-                  })
-                }
-              })
+              if(res.data.re.status==3){
+                wx.showToast({
+                  title: '您评论的内容涉及敏感词汇,请重新输入',
+                  icon: 'none'
+                })
+              }else{
+                this.setData({
+                  val: ''
+                })
+                wx.showToast({
+                  title: '评论成功',
+                  success: () => {
+                    //刷新评论列表
+                    wx.request({
+                      url: api.commentList2(this.data.id),
+                      success: (res) => {
+                        console.log(res)
+                        this.setData({
+                          commentList: res.data.re,
+                          num: res.data.re.length
+                        })
+                      }
+                    })
+                  }
+                })
+              }
+         
             }
           })
         }
